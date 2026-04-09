@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Smart Subscriptions Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <!-- LANDING PAGE -->
+    <div id="landing-screen" class="fullscreen-screen active">
+        <header class="landing-header">
+            <div class="brand">
+                <i class="fa-solid fa-bolt brand-icon"></i>
+                <span class="brand-text">NEXUS</span>
+            </div>
+            <nav class="landing-nav">
+                <a href="#features">Features</a>
+                <button class="btn-glow" id="goto-login-btn">Login</button>
+                <button class="btn-primary" id="goto-register-btn" style="padding: 10px 24px; border-radius: 8px;">Register</button>
+            </nav>
+        </header>
+
+        <main class="landing-hero">
+            <div class="hero-content">
+                <div class="badge-new">New Personal Tracker</div>
+                <h1 class="hero-title">Manage All Your Subscriptions <span class="text-gradient">Easily</span></h1>
+                <p class="hero-subtitle">Track your Netflix, Gym, rent, and other expenses in one simple place. Get reminders before you are billed so you never waste money.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" id="hero-register-btn">Create Free Account</button>
+                    <button class="btn-secondary" id="hero-login-btn">Login to Dashboard</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hologram-circle"></div>
+                <div class="hologram-circle inner"></div>
+                <div class="hero-card glass-panel floating">
+                    <i class="fa-solid fa-wallet"></i>
+                    <div>
+                        <h4>Save Money</h4>
+                        <p>Track every Rupee</p>
+                    </div>
+                </div>
+                <div class="hero-card glass-panel floating delay">
+                    <i class="fa-solid fa-bell"></i>
+                    <div>
+                        <h4>Reminders</h4>
+                        <p>Never miss a payment</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="login-screen" class="fullscreen-screen">
+        <div class="login-container">
+            <button class="back-btn" id="back-to-landing"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            
+            <div class="login-card glass-panel">
+                <div class="brand center">
+                    <i class="fa-solid fa-bolt brand-icon"></i>
+                    <span class="brand-text">NEXUS</span>
+                </div>
+                <!-- Login Form -->
+                <div id="login-form-container">
+                    <h2>Login to your account</h2>
+                    <p class="login-sub">Enter your details to view your dashboard.</p>
+    
+                    <form id="login-form">
+                        <div class="input-group">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" placeholder="Email Address" required value="user@nexus.com">
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Password" required value="••••••••">
+                        </div>
+                        <div class="login-options">
+                            <label><input type="checkbox" checked> <span>Remember Me</span></label>
+                            <a href="#">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">Login</button>
+                    </form>
+                    <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
+                        Don't have an account? <a href="#" id="show-register" style="color: var(--neon-cyan); text-decoration: none; font-weight: bold;">Register here</a>
+                    </p>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="register-form-container" style="display: none;">
+                    <h2>Create free account</h2>
+                    <p class="login-sub">Start taking back control of your spending.</p>
+    
+                    <form id="register-form">
+                        <div class="input-group">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Create Password" required>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">Sign Up</button>
+                    </form>
+                    <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
+                        Already have an account? <a href="#" id="show-login" style="color: var(--neon-cyan); text-decoration: none; font-weight: bold;">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD APP (Currently hidden until login) -->
+    <div id="dashboard-app" class="app-container" style="display: none; opacity: 0;">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-bolt brand-icon"></i>
+                <span class="brand-text">NEXUS</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-view="dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Overview Settings</span>
+                </li>
+                <li class="nav-item" data-view="subscriptions">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>My Expenses</span>
+                </li>
+                <li class="nav-item" data-view="calendar">
+                    <i class="fa-solid fa-film"></i>
+                    <span>OTT Releases</span>
+                </li>
+                <li class="nav-item" data-view="profile">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile Settings</span>
+                </li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=User&background=8a2be2&color=fff" alt="Avatar">
+                </div>
+                <div class="user-info">
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Free User</div>
+                </div>
+            </div>
+            
+            <div style="padding: 24px; margin-top: auto;">
+                <button class="btn-glow" id="logout-btn" style="width: 100%; border:1px solid var(--neon-red); color: var(--neon-red); background: var(--bg-panel); font-weight: 800;">Log Out</button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-nav">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search your subscriptions...">
+                </div>
+                <div class="header-actions">
+                    <div style="position:relative">
+                        <button class="icon-btn" id="notif-btn"><i class="fa-solid fa-bell"></i><span class="badge">3</span></button>
+                        <div class="dropdown-menu" id="notif-dropdown">
+                            <div class="dropdown-header">Notifications</div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-money-bill"></i>
+                                <div class="content"><h4>Netflix</h4><p>Payment of ₹649 is due in 2 days.</p></div>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-dumbbell"></i>
+                                <div class="content"><h4>Gym Membership</h4><p>Your 6-month plan ends next week.</p></div>
+                            </div>
+                            <div class="notification-item">
+                                <i class="fa-solid fa-check" style="color: var(--neon-green)"></i>
+                                <div class="content"><h4>Spotify</h4><p>Payment of ₹119 was successful.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position:relative">
+                        <button class="icon-btn" id="settings-btn"><i class="fa-solid fa-cog"></i></button>
+                        <div class="dropdown-menu" id="settings-dropdown">
+                            <div class="dropdown-header">Options</div>
+                            <div class="notification-item" id="open-profile-btn" style="cursor: pointer;">
+                                <i class="fa-solid fa-user"></i>
+                                <div class="content"><h4>Profile</h4><p>Edit your name and details</p></div>
+                            </div>
+                            <div class="notification-item" id="theme-toggle-btn" style="cursor: pointer;">
+                                <i class="fa-solid fa-circle-half-stroke" id="theme-icon"></i>
+                                <div class="content"><h4>Theme Mode</h4><p id="theme-status-text">Dark Mode is on</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="dashboard-view" class="view-section active">
+                <div class="page-header">
+                    <h1>My Summary</h1>
+                    <p class="subtitle">Quick look at your personal expenses</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Tracking</h3>
+                            <div class="stat-value">4 Services</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon purple"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-info">
+                            <h3>Monthly Spend</h3>
+                            <div class="stat-value">₹8,450</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon cyan"><i class="fa-solid fa-calendar"></i></div>
+                        <div class="stat-info">
+                            <h3>Next Payment</h3>
+                            <div class="stat-value">Netflix</div>
+                            <div class="stat-trend neutral"><i class="fa-solid fa-clock"></i> In 2 days</div>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon red"><i class="fa-solid fa-bell"></i></div>
+                        <div class="stat-info">
+                            <h3>Renewals Due</h3>
+                            <div class="stat-value">2 Upcoming</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-section" style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 32px;">
+                    <div class="chart-container glass-panel">
+                        <h3 class="chart-title">Spending by Category</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    
+                    <div class="glass-panel" style="display: flex; flex-direction: column;">
+                        <h3 class="chart-title">Budget Health</h3>
+                        <div class="progress-container" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                            <div class="progress-details" style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 18px;">
+                                <span style="font-weight: 600;" id="budget-spent-text">₹0 spent</span>
+                                <span style="color: var(--neon-cyan); font-weight: 700;" id="budget-percent-text">0%</span>
+                            </div>
+                            <div class="progress-bar-bg" style="width: 100%; height: 16px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative;">
+                                <div id="budget-progress-fill" class="progress-bar-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan)); box-shadow: 0 0 10px var(--neon-cyan); transition: width 0.5s ease;"></div>
+                            </div>
+                            <div style="margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <span style="color: var(--text-muted); font-size: 14px;">Set Allowance: ₹</span>
+                                <input type="number" id="budget-input" value="10000" style="width: 100px; background: var(--overlay-bg); border: 1px solid var(--panel-border); color: var(--text-main); padding: 4px 8px; border-radius: 4px; outline: none; font-family: 'Outfit', sans-serif;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profile-view" class="view-section" style="display: none;">
+                <div class="page-header">
+                    <h1>My Profile</h1>
+                    <p class="subtitle">Manage your personal settings</p>
+                </div>
+                <div class="glass-panel" style="max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                    <div>
+                        <h3 style="margin-bottom: 20px; color: var(--neon-purple); border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;">Account Basics</h3>
+                        <form id="profile-form">
+                            <div class="form-group" style="margin-bottom: 16px;">
+                                <label style="color: var(--text-muted); display: block; margin-bottom: 8px;">Full Name</label>
+                                <input type="text" value="John Doe">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 16px;">
+                                <label style="color: var(--text-muted); display: block; margin-bottom: 8px;">Email</label>
+                                <input type="email" value="user@nexus.com">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 24px;">
+                                <label style="color: var(--text-muted); display: block; margin-bottom: 8px;">Preferred Currency</label>
+                                <select>
+                                    <option value="INR">Indian Rupee (₹)</option>
+                                    <option value="USD">US Dollar ($)</option>
+                                    <option value="EUR">Euro (€)</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn-primary" style="width: 100%">Save Changes</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 20px; color: var(--neon-cyan); border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;">Advanced Preferences</h3>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px;">
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Email Reminders</h4>
+                                    <p style="font-size: 12px; color: var(--text-muted);">Get notified 3 days before a bill</p>
+                                </div>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--neon-cyan); transition: .4s; border-radius: 34px;"></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px;">
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Two-Factor Auth</h4>
+                                    <p style="font-size: 12px; color: var(--text-muted);">Secure account with SMS code</p>
+                                </div>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #555; transition: .4s; border-radius: 34px;"></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px;">
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Public Profile</h4>
+                                    <p style="font-size: 12px; color: var(--text-muted);">Make tracking data public</p>
+                                </div>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #555; transition: .4s; border-radius: 34px;"></span>
+                                </label>
+                            </div>
+                            <button type="button" class="btn-glow" style="margin-top: 10px; color: var(--neon-red); border-color: var(--neon-red); width: 100%;">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="calendar-view" class="view-section" style="display: none;">
+                <div class="page-header">
+                    <h1>Upcoming OTT Releases</h1>
+                    <p class="subtitle">Latest movies and shows dropping on streaming platforms</p>
+                </div>
+                <div class="glass-panel calendar-wrapper">
+                    <div id="calendar-list" class="release-list"></div>
+                </div>
+            </div>
+
+            <div id="subscriptions-view" class="view-section" style="display: none;">
+                <div class="page-header">
+                    <h1>My Expenses</h1>
+                    <p class="subtitle">Track where your money is going</p>
+                </div>
+                
+                <div class="expense-grid">
+                    <div class="expense-form-card glass-panel">
+                        <h3 style="margin-bottom: 16px;">Add New Expense</h3>
+                        <form id="add-sub-form">
+                            <div class="form-row">
+                                <div class="form-group" style="flex:2">
+                                    <input type="text" id="sub-name" placeholder="Name (e.g., Gym, Wi-Fi, Netflix)" required>
+                                </div>
+                                <div class="form-group" style="flex:1">
+                                    <input type="number" id="sub-cost" placeholder="Cost (₹)" step="1" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group" style="flex:1">
+                                    <select id="sub-category">
+                                        <option value="OTT Streaming">Movie/OTT</option>
+                                        <option value="Gym/Fitness">Fitness/Gym</option>
+                                        <option value="Bills">Bills/Rent</option>
+                                        <option value="Other">Other Expense</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="flex:1">
+                                    <input type="date" id="sub-date" required title="Start Date">
+                                </div>
+                                <div class="form-group" style="flex:1">
+                                    <select id="sub-duration">
+                                        <option value="1 Month">Every 1 Month</option>
+                                        <option value="3 Months">Every 3 Months</option>
+                                        <option value="6 Months">Every 6 Months</option>
+                                        <option value="1 Year">Every 1 Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary full-width" style="padding: 10px; font-size: 14px;">+ Add Expense</button>
+                        </form>
+                    </div>
+
+                    <div class="stat-card glass-panel" style="flex-direction: column; align-items: flex-start; justify-content: center;">
+                        <h3 style="color: var(--text-muted); margin-bottom: 8px;">Total Spent Per Month</h3>
+                        <div class="stat-value" id="total-spend-display" style="font-size: 42px; color: var(--neon-cyan);">₹0</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel table-wrapper" style="margin-top: 24px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Started On</th>
+                                <th>Duration</th>
+                                <th>Cost</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sub-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer class="app-footer">
+                <p>&copy; 2026 belongs to AASS</p>
+            </footer>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
